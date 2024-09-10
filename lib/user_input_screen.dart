@@ -18,7 +18,9 @@ class UserInputScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _buildTextField('Your name', nameController),
+            const SizedBox(height: 10),
             _buildTextField('Baby nickname', nicknameController),
+            const SizedBox(height: 10),
             _buildTextField('Week pregnant', weekController, isNumber: true),
             const SizedBox(height: 20),
             ElevatedButton(
