@@ -25,42 +25,49 @@ class ViewProgressScreen extends StatelessWidget {
         backgroundColor: Colors.pink.shade100,
         elevation: 0,
       ),
-      body: Container(
-        padding: const EdgeInsets.all(16.0),
-        color: Colors.pink.shade50,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Image.asset('assets/baby.png', height: 150), // Baby image
-                const SizedBox(width: 20),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildInfoCard('Size', selectedWeek.size, Colors.orange.shade100),
-                    _buildInfoCard('Fruit', selectedWeek.fruit, Colors.blue.shade100),
-                  ],
+      body: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          color: Colors.pink.shade50,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Image.asset('assets/baby.png', height: 150), // Baby image
+                  const SizedBox(width: 20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildInfoCard('Size', selectedWeek.size, Colors.orange.shade100),
+                      _buildInfoCard('Fruit', selectedWeek.fruit, Colors.blue.shade100),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              _buildSection('Baby Growth', selectedWeek.babyGrowth, Colors.pink.shade100),
+              _buildSection('Mother\'s Symptoms', selectedWeek.motherSymptoms, Colors.blue.shade100),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  // Navigate to next week
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.pink.shade300,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
                 ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            _buildSection('Baby Growth', selectedWeek.babyGrowth, Colors.pink.shade100),
-            _buildSection('Mother\'s Symptoms', selectedWeek.motherSymptoms, Colors.blue.shade100),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Navigate to next week
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.pink.shade300,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0),
+                child: const Text(
+                   'Next Week',
+                   style: TextStyle(
+                     color: Color.fromARGB(255, 255, 255, 255), // Change this to your desired color
+                    ),
                 ),
               ),
-              child: const Text('Next Week'),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
