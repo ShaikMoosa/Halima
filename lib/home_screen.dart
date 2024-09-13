@@ -27,50 +27,58 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildWeekContainer(BuildContext context, WeekData weekData) {
-    return Container(
-      color: Colors.pink.shade50,
-      padding: const EdgeInsets.all(16.0),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/${weekData.fruit.toLowerCase()}.png', 
-              height: 150,
-              errorBuilder: (context, error, stackTrace) => const Icon(Icons.broken_image, size: 150), // Fallback in case image doesn't exist
-            ), 
-            const SizedBox(height: 20),
-            Text(
-              '${weekData.fruit} 💖',
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+  return Container(
+    color: Colors.pink.shade50,
+    padding: const EdgeInsets.all(16.0),
+    child: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ClipOval(
+            child: Image.asset(
+              'assets/${weekData.fruit.toLowerCase()}.png', // Replaces spaces with underscores
+              height: 250, // Set height
+              width: 250,  // Set width
+              fit: BoxFit.cover, // Ensures the image fits within the circular shape
+              errorBuilder: (context, error, stackTrace) =>
+                  const Icon(Icons.broken_image, size: 150),
             ),
-            const SizedBox(height: 10),
-            Text(
-              'Week ${weekData.weekRange}',
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Provider.of<WeekProvider>(context, listen: false).selectWeek(weekData);
-                Navigator.pushNamed(context, '/viewProgress');
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.pink.shade300,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
+          ),
+          const SizedBox(height: 20),
+          Text(
+            '${weekData.fruit} 💖',
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            'Week ${weekData.weekRange}',
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              Provider.of<WeekProvider>(context, listen: false)
+                  .selectWeek(weekData);
+              Navigator.pushNamed(context, '/viewProgress');
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.pink.shade300,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
               ),
-              child: const Text(
-                'View Progress',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
+            ),
+            child: const Text(
+              'View Progress',
+              style: TextStyle(
+                color: Colors.white,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
-  }
+    ),
+  );
 }
+}
+
+
