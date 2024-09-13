@@ -56,6 +56,21 @@ flutter:
   assets:
     - assets/weeks_data.json
     - assets/baby.png
+    - assets/poppy seed.png
+    - assets/apple seed.png
+    - assets/lentil.png
+    - assets/blueberry.png
+    - assets/grape.png
+    - assets/lime.png
+    - assets/lemon.png
+    - assets/avocado.png
+    - assets/bell pepper.png
+    - assets/papaya.png
+    - assets/cucumber.png
+    - assets/eggplant.png
+    - assets/pineapple.png
+    - assets/watermelon.png
+    - assets/pumpkin.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

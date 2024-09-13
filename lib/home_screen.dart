@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'week_provider.dart';
 import 'week_data_model.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -15,7 +16,7 @@ class HomeScreen extends StatelessWidget {
               child: CircularProgressIndicator(),
             )
           : PageView.builder(
-              scrollDirection: Axis.vertical, // Set vertical scroll direction
+              scrollDirection: Axis.vertical, // Vertical scroll direction
               itemCount: weeksData.length,
               itemBuilder: (context, index) {
                 final weekData = weeksData[index];
@@ -33,7 +34,11 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/baby.png', height: 150), // Replace with baby image asset
+            Image.asset(
+              'assets/${weekData.fruit.toLowerCase()}.png', 
+              height: 150,
+              errorBuilder: (context, error, stackTrace) => const Icon(Icons.broken_image, size: 150), // Fallback in case image doesn't exist
+            ), 
             const SizedBox(height: 20),
             Text(
               '${weekData.fruit} 💖',
@@ -57,9 +62,9 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               child: const Text(
-                  'View Progress',
-                 style: TextStyle(
-                  color: Color.fromARGB(255, 255, 255, 255), // Change this to your desired color
+                'View Progress',
+                style: TextStyle(
+                  color: Colors.white,
                 ),
               ),
             ),
