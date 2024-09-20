@@ -10,15 +10,18 @@ class HomeScreen extends StatefulWidget {
   HomeScreenState createState() => HomeScreenState();
 }
 
-class HomeScreenState extends State<HomeScreen> { // Changed class name to public
+class HomeScreenState extends State<HomeScreen> {
   late PageController _pageController;
   int initialPageIndex = 0;
+  String babyName = 'Baby Growth'; // Default title
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     final weeksData = Provider.of<WeekProvider>(context, listen: false).weeksData;
-    final int selectedWeek = ModalRoute.of(context)?.settings.arguments as int? ?? 1;
+    final Map<String, dynamic> args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>? ?? {};
+    final int selectedWeek = args['week'] ?? 1;
+    babyName = args['babyName'] ?? 'Baby Growth';
 
     // Check if weeksData is not empty before using it
     if (weeksData.isEmpty) {
@@ -66,7 +69,7 @@ class HomeScreenState extends State<HomeScreen> { // Changed class name to publi
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Screen'),
+        title: Text(babyName), // Display baby name or default title
       ),
       body: weeksData.isEmpty
           ? const Center(

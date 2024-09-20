@@ -33,10 +33,19 @@ class UserInputScreenState extends State<UserInputScreen> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Navigate to HomeScreen with the selected week as an argument
+                // Navigate to HomeScreen with the selected week and baby name as arguments
                 Provider.of<WeekProvider>(context, listen: false)
                     .selectWeekByWeek(selectedWeek);
-                Navigator.pushNamed(context, '/home', arguments: selectedWeek);
+                Navigator.pushNamed(
+                  context,
+                  '/home',
+                  arguments: {
+                    'week': selectedWeek,
+                    'babyName': nicknameController.text.trim().isNotEmpty
+                        ? nicknameController.text.trim()
+                        : null, // Pass null if no name is provided
+                  },
+                );
               },
               child: const Text('Next'),
             ),
