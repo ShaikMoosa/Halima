@@ -26,7 +26,7 @@ class UserInputScreenState extends State<UserInputScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 100), // Space at the top for visual balance
+              const SizedBox(height: 100), // Space at the top for visual balance
               _buildTextField('Your name', nameController),
               const SizedBox(height: 10),
               _buildTextField('Baby nickname', nicknameController),
@@ -62,7 +62,7 @@ class UserInputScreenState extends State<UserInputScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 150), // Space at the bottom for visual balance
+              const SizedBox(height: 150), // Space at the bottom for visual balance
             ],
           ),
         ),
