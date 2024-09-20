@@ -71,6 +71,7 @@ flutter:
     - assets/pineapple.png
     - assets/watermelon.png
     - assets/pumpkin.png
+    - assets/leaves.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

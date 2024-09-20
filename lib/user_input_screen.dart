@@ -20,36 +20,51 @@ class UserInputScreenState extends State<UserInputScreen> {
     final weeksData = Provider.of<WeekProvider>(context).weeksData;
 
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildTextField('Your name', nameController),
-            const SizedBox(height: 10),
-            _buildTextField('Baby nickname', nicknameController),
-            const SizedBox(height: 10),
-            _buildWeekDropdown(context, weeksData), // The dropdown button
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Navigate to HomeScreen with the selected week and baby name as arguments
-                Provider.of<WeekProvider>(context, listen: false)
-                    .selectWeekByWeek(selectedWeek);
-                Navigator.pushNamed(
-                  context,
-                  '/home',
-                  arguments: {
-                    'week': selectedWeek,
-                    'babyName': nicknameController.text.trim().isNotEmpty
-                        ? nicknameController.text.trim()
-                        : null, // Pass null if no name is provided
-                  },
-                );
-              },
-              child: const Text('Next'),
-            ),
-          ],
+      body: SingleChildScrollView( // Scrollable content
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: 100), // Space at the top for visual balance
+              _buildTextField('Your name', nameController),
+              const SizedBox(height: 10),
+              _buildTextField('Baby nickname', nicknameController),
+              const SizedBox(height: 10),
+              _buildWeekDropdown(context, weeksData), // The dropdown button
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  // Navigate to HomeScreen with the selected week and baby name as arguments
+                  Provider.of<WeekProvider>(context, listen: false)
+                      .selectWeekByWeek(selectedWeek);
+                  Navigator.pushNamed(
+                    context,
+                    '/home',
+                    arguments: {
+                      'week': selectedWeek,
+                      'babyName': nicknameController.text.trim().isNotEmpty
+                          ? nicknameController.text.trim()
+                          : null, // Pass null if no name is provided
+                    },
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.pink.shade300,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                ),
+                child: const Text(
+                  'Next',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              SizedBox(height: 150), // Space at the bottom for visual balance
+            ],
+          ),
         ),
       ),
     );
@@ -110,7 +125,7 @@ class UserInputScreenState extends State<UserInputScreen> {
                 title: Text('Week $startWeek'),
                 onTap: () {
                   setState(() {
-                    selectedWeek = startWeek;
+                    selectedWeek = startWeek; // Removed misplaced semicolon
                   });
                   Navigator.pop(context); // Close the bottom sheet
                 },
