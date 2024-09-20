@@ -29,31 +29,14 @@ class UserInputScreenState extends State<UserInputScreen> {
             const SizedBox(height: 10),
             _buildTextField('Baby nickname', nicknameController),
             const SizedBox(height: 10),
-            _buildWeekDropdown(weeksData),
+            _buildWeekDropdown(context, weeksData), // The dropdown button
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Logging to check button press
-                print('Next button pressed. Selected week: $selectedWeek');
-
-                // Check if weeksData is available
-                if (weeksData.isNotEmpty) {
-                  // Select the week and navigate to HomeScreen
-                  Provider.of<WeekProvider>(context, listen: false)
-                      .selectWeekByWeek(selectedWeek);
-
-                  // Navigate to the HomeScreen with the selected week
-                  Navigator.pushNamed(
-                    context,
-                    '/home',
-                    arguments: selectedWeek, // Pass the selected week as an argument
-                  );
-                } else {
-                  // Show an error message if weeksData is not available
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Please select a valid week.")),
-                  );
-                }
+                // Navigate to HomeScreen with the selected week as an argument
+                Provider.of<WeekProvider>(context, listen: false)
+                    .selectWeekByWeek(selectedWeek);
+                Navigator.pushNamed(context, '/home', arguments: selectedWeek);
               },
               child: const Text('Next'),
             ),
@@ -74,16 +57,13 @@ class UserInputScreenState extends State<UserInputScreen> {
     );
   }
 
-  Widget _buildWeekDropdown(List<WeekData> weeksData) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8.0),
-        border: Border.all(color: Colors.grey),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<int>(
-          isExpanded: true,
+  Widget _buildWeekDropdown(BuildContext context, List<WeekData> weeksData) {
+    return GestureDetector(
+      onTap: () {
+        _showWeekSelectionSheet(context, weeksData); // Show modal bottom sheet when tapped
+      },
+      child: AbsorbPointer(
+        child: DropdownButtonFormField<int>(
           value: selectedWeek,
           items: List.generate(weeksData.length, (index) {
             int startWeek = int.parse(weeksData[index].weekRange.split('-').first);
@@ -95,14 +75,41 @@ class UserInputScreenState extends State<UserInputScreen> {
           onChanged: (int? newValue) {
             setState(() {
               selectedWeek = newValue!;
-              print('Selected week updated: $selectedWeek'); // Log the selected week
             });
           },
-          hint: const Text('Select week pregnant'),
-          style: const TextStyle(color: Colors.black, fontSize: 16.0),
-          dropdownColor: Colors.pink.shade50,
+          decoration: InputDecoration(
+            labelText: 'Select Week Pregnant',
+            border: const OutlineInputBorder(),
+          ),
         ),
       ),
+    );
+  }
+
+  void _showWeekSelectionSheet(BuildContext context, List<WeekData> weeksData) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.all(16.0),
+          child: ListView.builder(
+            itemCount: weeksData.length,
+            itemBuilder: (context, index) {
+              final weekRange = weeksData[index].weekRange.split('-');
+              int startWeek = int.parse(weekRange.first);
+              return ListTile(
+                title: Text('Week $startWeek'),
+                onTap: () {
+                  setState(() {
+                    selectedWeek = startWeek;
+                  });
+                  Navigator.pop(context); // Close the bottom sheet
+                },
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
