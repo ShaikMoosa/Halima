@@ -383,7 +383,7 @@ class SquaresPainter extends CustomPainter {
       }
 
       final Paint paint = Paint()
-        ..color = const Color.fromARGB(255, 254, 115, 191).withOpacity(square.opacity);
+        ..color = Color.fromARGB(255, 252, 177, 218).withOpacity(square.opacity);
 
       canvas.drawRect(
         Rect.fromLTWH(
