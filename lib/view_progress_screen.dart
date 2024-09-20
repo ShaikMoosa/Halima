@@ -58,24 +58,8 @@ class ViewProgressScreen extends StatelessWidget {
               const SizedBox(height: 20),
               _buildSection('Baby Growth', selectedWeekData.babyGrowth, Colors.pink.shade100),
               _buildSection('Mother\'s Symptoms', selectedWeekData.motherSymptoms, Colors.blue.shade100),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  // Navigate to the next screen or perform other actions if needed
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.pink.shade300,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                ),
-                child: const Text(
-                   'Next Week',
-                   style: TextStyle(
-                     color: Colors.white,
-                    ),
-                ),
-              ),
+              // Remove the "Next Week" button
+              // If you want to add other buttons or features, you can add them here.
             ],
           ),
         ),
