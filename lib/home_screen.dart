@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'week_provider.dart';
 import 'week_data_model.dart';
-//import 'dart:developer' as developer; // Import for logging
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  HomeScreenState createState() => HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends State<HomeScreen> { // Changed class name to public
   late PageController _pageController;
   int initialPageIndex = 0;
 
@@ -21,15 +20,27 @@ class _HomeScreenState extends State<HomeScreen> {
     final weeksData = Provider.of<WeekProvider>(context, listen: false).weeksData;
     final int selectedWeek = ModalRoute.of(context)?.settings.arguments as int? ?? 1;
 
+    // Check if weeksData is not empty before using it
+    if (weeksData.isEmpty) {
+      print("Error: weeksData is empty or not loaded.");
+      return;
+    }
+
     // Calculate the initial page index based on the selected week.
     initialPageIndex = weeksData.indexWhere((weekData) {
       final weekRange = weekData.weekRange.split('-');
       int startWeek = int.parse(weekRange.first);
-      int endWeek = int.parse(weekRange.last);
+      int endWeek = weekRange.length > 1 ? int.parse(weekRange.last) : startWeek;
       return selectedWeek >= startWeek && selectedWeek <= endWeek;
     });
 
-    _pageController = PageController(initialPage: initialPageIndex >= 0 ? initialPageIndex : 0);
+    // Check if the initial page index is valid
+    if (initialPageIndex < 0 || initialPageIndex >= weeksData.length) {
+      print("Error: initialPageIndex is out of range: $initialPageIndex");
+      initialPageIndex = 0; // Set to the first page if out of range
+    }
+
+    _pageController = PageController(initialPage: initialPageIndex);
 
     // Trigger auto-scroll after a short delay of 0.3 seconds
     Future.delayed(const Duration(milliseconds: 300), () {
@@ -106,7 +117,13 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 Provider.of<WeekProvider>(context, listen: false)
                     .selectWeek(weekData);
-                Navigator.pushNamed(context, '/viewProgress');
+
+                // Navigate to ViewProgressScreen with the selected WeekData
+                Navigator.pushNamed(
+                  context,
+                  '/viewProgress',
+                  arguments: weekData, // Pass the entire WeekData object as an argument
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.pink.shade300,

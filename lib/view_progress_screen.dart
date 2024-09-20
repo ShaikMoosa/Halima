@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'week_provider.dart';
-//import 'week_data_model.dart';
+//import 'package:provider/provider.dart';
+//import 'week_provider.dart';
+import 'week_data_model.dart'; // Import the WeekData model
 
 class ViewProgressScreen extends StatelessWidget {
   const ViewProgressScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final selectedWeek = Provider.of<WeekProvider>(context).selectedWeek;
+    // Retrieve the WeekData object passed from HomeScreen
+    final WeekData? selectedWeekData = ModalRoute.of(context)?.settings.arguments as WeekData?;
 
-    if (selectedWeek == null) {
+    if (selectedWeekData == null) {
       return const Scaffold(
         body: Center(
           child: Text("No week selected"),
@@ -20,7 +21,7 @@ class ViewProgressScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('${selectedWeek.fruit} 💖'),
+        title: Text('${selectedWeekData.fruit} 💖'),
         centerTitle: true,
         backgroundColor: Colors.pink.shade100,
         elevation: 0,
@@ -34,24 +35,33 @@ class ViewProgressScreen extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Image.asset('assets/baby.png', height: 150), // Baby image
+                  ClipOval(
+                    child: Image.asset(
+                      'assets/${selectedWeekData.fruit.toLowerCase()}.png',
+                      height: 150, // Adjust the size as needed
+                      width: 150, // Adjust the size as needed
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Icon(Icons.broken_image, size: 100),
+                    ),
+                  ),
                   const SizedBox(width: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildInfoCard('Size', selectedWeek.size, Colors.orange.shade100),
-                      _buildInfoCard('Fruit', selectedWeek.fruit, Colors.blue.shade100),
+                      _buildInfoCard('Size', selectedWeekData.size, Colors.orange.shade100),
+                      _buildInfoCard('Fruit', selectedWeekData.fruit, Colors.blue.shade100),
                     ],
                   ),
                 ],
               ),
               const SizedBox(height: 20),
-              _buildSection('Baby Growth', selectedWeek.babyGrowth, Colors.pink.shade100),
-              _buildSection('Mother\'s Symptoms', selectedWeek.motherSymptoms, Colors.blue.shade100),
+              _buildSection('Baby Growth', selectedWeekData.babyGrowth, Colors.pink.shade100),
+              _buildSection('Mother\'s Symptoms', selectedWeekData.motherSymptoms, Colors.blue.shade100),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  // Navigate to next week
+                  // Navigate to the next screen or perform other actions if needed
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.pink.shade300,
@@ -62,7 +72,7 @@ class ViewProgressScreen extends StatelessWidget {
                 child: const Text(
                    'Next Week',
                    style: TextStyle(
-                     color: Color.fromARGB(255, 255, 255, 255), // Change this to your desired color
+                     color: Colors.white,
                     ),
                 ),
               ),
