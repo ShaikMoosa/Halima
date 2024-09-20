@@ -26,11 +26,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.pink.shade300,
         scaffoldBackgroundColor: Colors.pink.shade50,
-        fontFamily: 'Arial', // Use custom font if needed
+        fontFamily: 'Arial',
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => UserInputScreen(),
+        '/': (context) => const UserInputScreen(),
         '/home': (context) => const HomeScreen(),
         '/viewProgress': (context) => const ViewProgressScreen(),
       },

@@ -21,19 +21,38 @@ class WeekProvider with ChangeNotifier {
     _selectedWeek = week;
     notifyListeners();
   }
+
   void selectWeekByWeek(int weekNumber) {
-  // Assuming each entry in the JSON data represents a week range (e.g., 1-4, 5-8, etc.)
-  for (var weekData in _weeksData) {
-    final weekRange = weekData.weekRange.split('-');
-    int startWeek = int.parse(weekRange[0]);
-    int endWeek = int.parse(weekRange[1]);
-
-    if (weekNumber >= startWeek && weekNumber <= endWeek) {
-      _selectedWeek = weekData;
-      break;
+    // Check if weeks data is loaded and not empty
+    if (_weeksData.isEmpty) {
+      print("Weeks data is not loaded yet.");
+      return;
     }
+
+    // Debugging: Print the current state of weeks data and week number
+    print("Attempting to select week: $weekNumber");
+    print("Total weeks data available: ${_weeksData.length}");
+
+    for (var weekData in _weeksData) {
+      final weekRange = weekData.weekRange.split('-');
+      
+      // Check if weekRange is a single week or a range
+      int startWeek = int.parse(weekRange[0]);
+      int endWeek = weekRange.length > 1 ? int.parse(weekRange[1]) : startWeek;
+
+      if (weekNumber >= startWeek && weekNumber <= endWeek) {
+        _selectedWeek = weekData;
+        print("Week selected: ${weekData.weekRange}");
+        break;
+      }
+    }
+
+    // Check if a week was selected, if not show a message
+    if (_selectedWeek == null) {
+      print("No valid week found for week number: $weekNumber");
+    }
+
+    notifyListeners();
   }
-  notifyListeners();
 }
 
-}
