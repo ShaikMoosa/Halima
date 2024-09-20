@@ -21,7 +21,7 @@ class ViewProgressScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Progress'),
+        title: const Text('Progress'),
         centerTitle: true,
         backgroundColor: Colors.pink.shade100,
         elevation: 0,

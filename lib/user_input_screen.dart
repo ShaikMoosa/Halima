@@ -86,9 +86,9 @@ class UserInputScreenState extends State<UserInputScreen> {
               selectedWeek = newValue!;
             });
           },
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             labelText: 'Select Week Pregnant',
-            border: const OutlineInputBorder(),
+            border: OutlineInputBorder(),
           ),
         ),
       ),
