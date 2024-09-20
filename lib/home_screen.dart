@@ -69,7 +69,13 @@ class HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(babyName), // Display baby name or default title
+        title: Center(
+          child: Text(
+            babyName, // Display baby name or default title
+            style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0)),
+          ),
+        ),
+        backgroundColor: Colors.pink.shade50, // Optional: Set background color for the AppBar
       ),
       body: weeksData.isEmpty
           ? const Center(

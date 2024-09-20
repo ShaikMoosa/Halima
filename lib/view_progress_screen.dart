@@ -23,7 +23,7 @@ class ViewProgressScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Progress'),
         centerTitle: true,
-        backgroundColor: Colors.pink.shade100,
+        backgroundColor: Colors.pink.shade50,
         elevation: 0,
       ),
       body: SingleChildScrollView(
