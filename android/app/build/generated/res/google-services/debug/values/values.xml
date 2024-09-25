@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">230632090729-la786pi61u5s57e3inbjnp1i508iv40n.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">230632090729</string>
+    <string name="google_api_key" translatable="false">AIzaSyDrFHn5lTB1N-UOI1XXbQlBg90CsTw1puQ</string>
+    <string name="google_app_id" translatable="false">1:230632090729:android:df7b784b2d13d520ad46f8</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDrFHn5lTB1N-UOI1XXbQlBg90CsTw1puQ</string>
+    <string name="google_storage_bucket" translatable="false">halima-12d2e.appspot.com</string>
+    <string name="project_id" translatable="false">halima-12d2e</string>
+</resources>

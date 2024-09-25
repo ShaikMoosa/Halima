@@ -1,8 +1,10 @@
+// App-level build.gradle
+
 plugins {
     id "com.android.application"
     id "kotlin-android"
-    id "com.google.gms.google-services" // Apply Google Services plugin
     id "dev.flutter.flutter-gradle-plugin"
+    id "com.google.gms.google-services" // Apply Google Services plugin
 }
 
 def localProperties = new Properties()
@@ -28,7 +30,7 @@ android {
     compileSdkVersion 33 // Use a fixed SDK version
 
     defaultConfig {
-        applicationId "com.halima.app" // Make sure this matches your google-services.json
+        applicationId "com.halima.app" // Ensure this matches your google-services.json
         minSdkVersion 21
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
@@ -36,13 +38,13 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     buildTypes {
         release {
-            // You can configure your signing configurations here
+            // Configure your signing configurations here if needed
             signingConfig signingConfigs.debug
         }
     }
@@ -52,28 +54,5 @@ flutter {
     source = "../.." // Path to your Flutter project root
 }
 
-// Apply Google Services plugin at the end
-apply plugin: 'com.google.gms.google-services'
-buildscript {
-    ext.kotlin_version = '1.8.10'
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:8.0.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.google.gms:google-services:4.3.15' // Add this line
-    }
-}
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
-}
+// Removed buildscript {} block from here
+// Removed 'apply plugin: 'com.google.gms.google-services'' as it's declared in plugins {}
