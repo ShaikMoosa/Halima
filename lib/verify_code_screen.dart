@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:myapp/reset_password_screen.dart';
+import 'reset_password_screen.dart';
 
 class VerifyCodeScreen extends StatefulWidget {
-  final String email; // Pass the email to this screen
+  final String email;
 
   VerifyCodeScreen({required this.email});
 
@@ -14,18 +14,34 @@ class VerifyCodeScreen extends StatefulWidget {
 class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
   final _codeController = TextEditingController();
   String _message = '';
+  final _auth = FirebaseAuth.instance; // Keep the FirebaseAuth instance
 
   Future<void> _verifyCode() async {
-    // Replace this with your verification logic (e.g., sending and verifying codes)
-    if (_codeController.text == "12345") { // Replace with actual verification
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => ResetPasswordScreen(email: widget.email),
-        ),
-      );
-    } else {
+    try {
+      // Simulating the process of code verification.
+      // Replace this with actual Firebase verification logic, like email action codes or phone verification.
+      var user = _auth.currentUser;
+      if (user != null) {
+        await user.reload(); // Reload to ensure the user info is updated
+        if (user.emailVerified) { // Check if email is verified
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => ResetPasswordScreen(email: widget.email),
+            ),
+          );
+        } else {
+          setState(() {
+            _message = 'Please verify your email before proceeding.';
+          });
+        }
+      } else {
+        setState(() {
+          _message = 'User not found. Please log in again.';
+        });
+      }
+    } catch (e) {
       setState(() {
-        _message = 'Invalid code. Please try again.';
+        _message = 'Verification failed. Please try again later.';
       });
     }
   }
@@ -63,7 +79,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
             ),
             TextButton(
               onPressed: () {
-                // Optionally handle resending the code
+                // Implement code resend functionality here
               },
               child: Text('Haven’t got the email? Resend email'),
             ),

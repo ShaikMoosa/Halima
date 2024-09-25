@@ -12,7 +12,12 @@
           "package_name": "com.halima.app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "230632090729-la786pi61u5s57e3inbjnp1i508iv40n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDrFHn5lTB1N-UOI1XXbQlBg90CsTw1puQ"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "230632090729-la786pi61u5s57e3inbjnp1i508iv40n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -13,7 +13,7 @@ class ResetPasswordScreen extends StatefulWidget {
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-  final _auth = FirebaseAuth.instance;
+  final _auth = FirebaseAuth.instance; // Keep the FirebaseAuth instance
   String _message = '';
 
   Future<void> _resetPassword() async {
@@ -25,13 +25,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     }
 
     try {
-      // Here, you would use your Firebase logic to reset the password.
-      // Since Firebase does not support direct password reset with verification code,
-      // a workaround is to use `sendPasswordResetEmail` to start the process.
+      // Send password reset email again as Firebase does not support password reset directly
+      await _auth.sendPasswordResetEmail(email: widget.email);
 
-      // For demonstration, we'll just display a success message.
       setState(() {
-        _message = 'Password reset successful!';
+        _message = 'A password reset link has been sent to your email!';
       });
     } catch (e) {
       setState(() {
