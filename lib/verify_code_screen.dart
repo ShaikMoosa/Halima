@@ -5,7 +5,7 @@ import 'reset_password_screen.dart';
 class VerifyCodeScreen extends StatefulWidget {
   final String email;
 
-  VerifyCodeScreen({required this.email});
+  const VerifyCodeScreen({required this.email});
 
   @override
   _VerifyCodeScreenState createState() => _VerifyCodeScreenState();
@@ -50,7 +50,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Verify Code'),
+        title: const Text('Verify Code'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -60,9 +60,9 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
             Text(
               'We sent a reset link to ${widget.email}. Enter the 5-digit code that was included in the email.',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextField(
               controller: _codeController,
               maxLength: 5,
@@ -72,16 +72,16 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
               ),
               keyboardType: TextInputType.number,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _verifyCode,
-              child: Text('Verify Code'),
+              child: const Text('Verify Code'),
             ),
             TextButton(
               onPressed: () {
                 // Implement code resend functionality here
               },
-              child: Text('Haven’t got the email? Resend email'),
+              child: const Text('Haven’t got the email? Resend email'),
             ),
           ],
         ),

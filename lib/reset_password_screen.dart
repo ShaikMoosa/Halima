@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class ResetPasswordScreen extends StatefulWidget {
   final String email; // Pass the email to this screen
 
-  ResetPasswordScreen({required this.email});
+  const ResetPasswordScreen({required this.email});
 
   @override
   _ResetPasswordScreenState createState() => _ResetPasswordScreenState();
@@ -42,7 +42,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Set a New Password'),
+        title: const Text('Set a New Password'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -65,16 +65,16 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 errorText: _message.isNotEmpty ? _message : null,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _resetPassword,
-              child: Text('Update Password'),
+              child: const Text('Update Password'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             if (_message.isNotEmpty)
               Text(
                 _message,
-                style: TextStyle(color: Colors.red),
+                style: const TextStyle(color: Colors.red),
               ),
           ],
         ),
